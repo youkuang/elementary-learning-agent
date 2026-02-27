@@ -1,5 +1,6 @@
 """
 Elementary Learning Agent - Main Entry Point
+Using OpenClaw Framework
 """
 
 import os
@@ -13,10 +14,6 @@ sys.path.insert(0, str(project_root))
 from dotenv import load_dotenv
 from loguru import logger
 
-from agents.coordinator import CoordinatorAgent
-from agents.chinese_tutor import ChineseTutorAgent
-from agents.math_tutor import MathTutorAgent
-from agents.english_tutor import EnglishTutorAgent
 from database.db_manager import DatabaseManager
 from config.config import Config
 
@@ -57,6 +54,7 @@ def main():
     
     logger.info("=" * 60)
     logger.info("Starting Elementary Learning Agent System")
+    logger.info("Powered by OpenClaw")
     logger.info("=" * 60)
     
     try:
@@ -69,26 +67,20 @@ def main():
         db_manager.initialize()
         logger.info("Database initialized")
         
-        # Initialize agents
-        logger.info("Initializing agents...")
-        
-        chinese_agent = ChineseTutorAgent(config, db_manager)
-        math_agent = MathTutorAgent(config, db_manager)
-        english_agent = EnglishTutorAgent(config, db_manager)
-        coordinator = CoordinatorAgent(config, db_manager)
-        
-        logger.info("✓ Chinese Tutor Agent initialized")
-        logger.info("✓ Math Tutor Agent initialized")
-        logger.info("✓ English Tutor Agent initialized")
-        logger.info("✓ Coordinator Agent initialized")
-        
-        # Start the system
+        # Start OpenClaw
+        logger.info("Starting OpenClaw...")
         logger.info("=" * 60)
         logger.info("System is ready! Listening for Slack messages...")
         logger.info("=" * 60)
         
-        # Start Slack bot (blocking call)
-        coordinator.start()
+        # TODO: Start OpenClaw with openclaw_config.yaml
+        # This will be implemented once OpenClaw is installed
+        # For now, show instructions
+        
+        logger.warning("OpenClaw not yet started.")
+        logger.info("To start the system:")
+        logger.info("1. Install OpenClaw: pip install openclaw")
+        logger.info("2. Run: openclaw start --config openclaw_config.yaml")
         
     except KeyboardInterrupt:
         logger.info("\nShutting down gracefully...")

@@ -1,0 +1,114 @@
+# OpenClaw Configuration
+# Elementary Learning Agent System
+
+# Gateway Configuration
+gateway:
+  # Slack Integration
+  slack:
+    enabled: true
+    bot_token: ${SLACK_BOT_TOKEN}
+    app_token: ${SLACK_APP_TOKEN}
+    
+    # Channel Mapping
+    channels:
+      - name: "语文-学习"
+        agent: chinese_tutor
+      - name: "数学-学习"
+        agent: math_tutor
+      - name: "英语-学习"
+        agent: english_tutor
+      - name: "学习-总览"
+        agent: coordinator
+      - name: "学习-报告"
+        agent: coordinator
+
+# Agents Configuration
+agents:
+  - name: chinese_tutor
+    config_file: agents/chinese_tutor.yaml
+    enabled: true
+    
+  - name: math_tutor
+    config_file: agents/math_tutor.yaml
+    enabled: true
+    
+  - name: english_tutor
+    config_file: agents/english_tutor.yaml
+    enabled: true
+    
+  - name: coordinator
+    config_file: agents/coordinator.yaml
+    enabled: true
+
+# Skills Configuration
+skills:
+  path: ./skills
+  auto_discover: true
+  
+  # Available skills
+  available:
+    - task_manager
+    - adaptive_teaching
+    - progress_tracker
+    - spaced_repetition
+
+# Database Configuration
+database:
+  type: ${DATABASE_TYPE}
+  path: ${DATABASE_PATH}
+  # For PostgreSQL
+  host: ${DATABASE_HOST}
+  port: ${DATABASE_PORT}
+  name: ${DATABASE_NAME}
+  user: ${DATABASE_USER}
+  password: ${DATABASE_PASSWORD}
+
+# Scheduler Configuration
+scheduler:
+  enabled: ${ENABLE_SCHEDULER}
+  timezone: ${TIMEZONE}
+  
+  jobs:
+    # Daily learning plan (8:00 AM)
+    - name: daily_plan
+      agent: coordinator
+      cron: "0 8 * * *"
+      action: send_daily_plan
+      channel: "学习-总览"
+    
+    # Weekly report (Sunday 8:00 PM)
+    - name: weekly_report
+      agent: coordinator
+      cron: "0 20 * * 0"
+      action: send_weekly_report
+      channel: "学习-报告"
+
+# Logging Configuration
+logging:
+  level: ${LOG_LEVEL}
+  file: ${LOG_FILE}
+  format: "%(asctime)s | %(levelname)-8s | %(name)s:%(funcName)s - %(message)s"
+  rotation: "10 MB"
+  retention: "30 days"
+
+# AI Model Configuration
+ai:
+  default_model: ${AI_MODEL}
+  
+  # Model-specific settings
+  models:
+    claude:
+      api_key: ${ANTHROPIC_API_KEY}
+      max_tokens: 4096
+      temperature: 0.7
+    
+    gpt:
+      api_key: ${OPENAI_API_KEY}
+      max_tokens: 4096
+      temperature: 0.7
+
+# System Configuration
+system:
+  timezone: ${TIMEZONE}
+  data_dir: ./data
+  logs_dir: ./logs
