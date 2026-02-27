@@ -186,13 +186,36 @@ graph TB
 
 ## 🚀 快速开始
 
-### 1. 环境要求
+### 方式 1: Docker 部署 (推荐)
+
+```bash
+# 克隆项目
+git clone https://github.com/youkuang/elementary-learning-agent.git
+cd elementary-learning-agent
+
+# 配置环境变量
+cp .env.example .env
+# 编辑 .env 填入 Slack Token 和 AI API Key
+
+# 启动
+docker-compose up -d
+
+# 查看日志
+docker-compose logs -f
+```
+
+详细的 Docker 部署指南请查看 [docs/DOCKER_DEPLOYMENT.md](docs/DOCKER_DEPLOYMENT.md)
+
+### 方式 2: 本地安装
+
+#### 1. 环境要求
 
 - Python 3.10+
+- Docker & Docker Compose (推荐)
 - Slack Workspace (免费版即可)
 - Claude API Key 或 OpenAI API Key
 
-### 2. 安装
+#### 2. 安装
 
 ```bash
 # 克隆项目
@@ -213,7 +236,7 @@ pip install -e .
 cd ..
 ```
 
-### 3. 配置
+#### 3. 配置
 
 ```bash
 # 复制环境变量模板
@@ -226,13 +249,13 @@ cp .env.example .env
 
 详细的 Slack 配置步骤请查看 [docs/SLACK_SETUP.md](docs/SLACK_SETUP.md)
 
-### 4. 初始化数据库
+#### 4. 初始化数据库
 
 ```bash
 python scripts/init_db.py
 ```
 
-### 5. 启动系统
+#### 5. 启动系统
 
 ```bash
 # 使用 OpenClaw 启动
